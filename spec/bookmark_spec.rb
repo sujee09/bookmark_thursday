@@ -8,7 +8,7 @@ describe Bookmark do
 
   describe '#all' do 
     it 'expects Bookmark.all to list bookmarks' do
-      expect(Bookmark.all).to eq ["https://makers.tech/", "https://devhints.io/vim"]
+      expect(Bookmark.all).to eq ["http://www.makersacademy.com", "http://www.destroyallsoftware.com"]
     end
   end
 end
