@@ -1,3 +1,5 @@
+require 'pg'
+
 feature 'Bookmarks page' do
   scenario 'can view all bookmarks in the bookmarks page' do
     con = PG.connect(dbname: 'bookmark_manager_test')
