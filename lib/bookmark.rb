@@ -4,13 +4,11 @@ class Bookmark
 
   attr_reader :id, :url, :title
 
-  def initalize(id:, url:, title:)
+  def initialize(id, url, title)
     @id = id
     @url = url
     @title = title
   end
-
-  
 
   def self.all
     if ENV['RACK_ENV'] == 'test'
@@ -20,7 +18,7 @@ class Bookmark
     end
     query = con.exec "SELECT * FROM bookmarks"
     query.map do |row|
-      Bookmark.new(id: row["id"], url: row["url"], title: row["title"])
+      Bookmark.new(row['id'], row['url'], row['title'])
     end
 
   end
@@ -31,7 +29,8 @@ class Bookmark
     else
       con = PG.connect(dbname: 'bookmark_manager')
     end
-      con.exec("INSERT INTO bookmarks (url, title) VALUES('#{url}', '#{title}')")
+    result = con.exec("INSERT INTO bookmarks (url, title) VALUES('#{url}', '#{title}') RETURNING id, url, title")
+    Bookmark.new(result[0]['id'], result[0]['url'], result[0]['title'])
   end
 
 end

@@ -8,6 +8,6 @@ feature 'add bookmark' do
       fill_in('title', with: 'Yahoo')
     end
     click_button('Submit')
-    expect(page).to have_content('http://www.yahoo.com')
+    expect(page).to have_content('Yahoo')
   end
 end
