@@ -22,8 +22,17 @@ describe Bookmark do
   describe '#add_bookmark' do
     it 'adds the url to the database' do
       bookmark = Bookmark.add_bookmark('http://www.yahoo.com', 'Yahoo')
-      expect(bookmark.url).to eq ('http://www.yahoo.com')
-      expect(bookmark.title).to eq ('Yahoo')
+      expect(bookmark.url).to eq 'http://www.yahoo.com'
+      expect(bookmark.title).to eq 'Yahoo'
+    end
+  end
+
+  describe '#delete' do
+    it 'deletes the url from the database' do
+      bookmark = Bookmark.add_bookmark('http://www.yahoo.com', 'Yahoo')
+      Bookmark.add_bookmark('http://www.destroyallsoftware.com', 'Destroy')
+      bookmarks = Bookmark.delete('Yahoo')
+      expect(Bookmark.all.length).to eq 1
     end
   end
 
