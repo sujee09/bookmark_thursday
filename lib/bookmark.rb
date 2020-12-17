@@ -42,4 +42,21 @@ class Bookmark
     result = con.exec("DELETE FROM bookmarks WHERE title='#{title}' ")
   end
 
+  def self.update_title(url, title)
+    if ENV['RACK_ENV'] == 'test'
+      con = PG.connect(dbname: 'bookmark_manager_test')
+    else
+      con = PG.connect(dbname: 'bookmark_manager')
+    end
+    result = con.exec("UPDATE bookmarks SET title='#{title}' WHERE url='#{url}' ")
+  end
+
+  def self.update_url(url, title)
+    if ENV['RACK_ENV'] == 'test'
+      con = PG.connect(dbname: 'bookmark_manager_test')
+    else
+      con = PG.connect(dbname: 'bookmark_manager')
+    end
+    result = con.exec("UPDATE bookmarks SET url='#{url}' WHERE title='#{title}' ")
+  end
 end

@@ -36,4 +36,23 @@ describe Bookmark do
     end
   end
 
+  describe '#update_title' do
+    it 'updates the bookmark in the database' do
+      Bookmark.add_bookmark('http://www.yahoo.com', 'Yahoo')
+      Bookmark.update_title('http://www.yahoo.com', 'Google')
+      bookmarks = Bookmark.all
+      expect(bookmarks.first.title).to eq 'Google'
+      expect(bookmarks.first.url).to eq 'http://www.yahoo.com'
+    end
+  end
+
+  describe '#update_url' do
+    it 'updates the bookmark in the database' do
+      Bookmark.add_bookmark('http://www.yahoo.com', 'Yahoo')
+      Bookmark.update_url('http://www.google.com', 'Yahoo')
+      bookmarks = Bookmark.all
+      expect(bookmarks.first.title).to eq 'Yahoo'
+      expect(bookmarks.first.url).to eq 'http://www.google.com'
+    end
+  end
 end
